@@ -7,5 +7,5 @@ ENV DEBIAN_FRONTEND=noninteractive \
 RUN apt update && apt -y full-upgrade &&\
     apt install -y dh-python alien git git-buildpackage python3-setuptools python3-dateutil \
 	python3-isodate python3-croniter python3-jsonschema python3-yaml python3-paramiko && \
-    cd /root/zettarepl && gbp dch --new-version $(git tag | tail -1 | sed s~TS-~~) && debian/rules binary && \
+    cd /root/zettarepl && git fetch --tags && gbp dch --new-version $(git tag | tail -1 | sed s~TS-~~) && debian/rules binary && \
 	cd .. && alien --to-rpm python3-zettarepl_*_all.deb
