@@ -10,6 +10,26 @@
 * Configuration via simple and clear YAML file
 * Full integration with [FreeNAS](http://www.freenas.org/), the World’s #1 data storage solution
 
+## EL 9 specific caveats
+
+This uses `alien` to create the rpm package. Python uses different directories on Debian and EL9.  
+  => `export PYTHONPATH=/usr/lib/python3/dist-packages/`
+The dependencies don't translate well so the following dependencies have to be install manually
+  => `sudo dnf install python3-coloredlogs python3-jsonschema python3-isodate python3-croniter python3-paramiko`
+  
+## Running using systemd
+
+TrueNAS Scale does not use systemd to run this code. The design is systemd.service friendly.
+
+```ini
+[Unit]
+Description=zettarepl TrueNAS snapshot and replication tool
+
+[Service]
+Environment=PYTHONPATH=/usr/lib/python3/dist-packages/
+ExecStart=/usr/bin/zettarepl run /etc/zfs/zettarepl.yaml
+```
+
 ## Configuration
 
 **zettarepl** is configured via single [YAML](http://yaml.org/) file that defines common replication parameters and
