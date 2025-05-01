@@ -40,4 +40,4 @@ jobs:
       - uses: ncipollo/release-action@v1
         with:
           artifacts: "root/*.rpm,root/*.deb"
-          tag: "24.10.1"
+          tag: "25.04.2"
